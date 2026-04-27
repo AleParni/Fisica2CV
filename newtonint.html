@@ -1,0 +1,512 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>♜ Las Leyes de Newton: Guía Interactiva</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Roboto, system-ui, sans-serif;
+        }
+
+        body {
+            background: linear-gradient(145deg, #f0f4fa 0%, #dae5f0 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            padding: 2rem 1rem;
+        }
+
+        .tarjeta-principal {
+            max-width: 1100px;
+            width: 100%;
+            background: rgba(255, 255, 255, 0.75);
+            backdrop-filter: blur(6px);
+            -webkit-backdrop-filter: blur(6px);
+            border-radius: 3rem 3rem 2rem 2rem;
+            box-shadow: 0 25px 45px -12px #1e3a5f66, 0 4px 12px #0000001a;
+            padding: 2.2rem 2rem;
+            border: 1px solid #ffffffcc;
+        }
+
+        h1 {
+            font-size: 2.8rem;
+            font-weight: 700;
+            color: #0a2647;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            border-bottom: 4px solid #2c7da0;
+            padding-bottom: 0.5rem;
+            margin-bottom: 2rem;
+            letter-spacing: -0.02em;
+        }
+
+        h1 span {
+            background: #1e3a5f;
+            color: white;
+            font-size: 1.8rem;
+            padding: 0.3rem 1rem;
+            border-radius: 60px;
+            box-shadow: 0 6px 0 #0f1d30;
+        }
+
+        h2 {
+            font-size: 2rem;
+            font-weight: 600;
+            color: #1b3b4f;
+            margin: 1.8rem 0 1rem 0;
+            padding-left: 0.8rem;
+            border-left: 14px solid #48b5d0;
+        }
+
+        h3 {
+            font-weight: 600;
+            font-size: 1.5rem;
+            color: #163a4b;
+            margin: 1.2rem 0 0.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .podcast-container {
+            background: #11212e;
+            background-image: radial-gradient(circle at 20% 30%, #2a4a5e 0%, #0b1c26 95%);
+            border-radius: 2.5rem;
+            padding: 1.6rem 2rem;
+            margin: 2rem 0 2.5rem;
+            color: white;
+            box-shadow: inset 0 -4px 0 #0e2a33, 0 18px 22px -14px #0b1e2b;
+            border: 1px solid #5688a7;
+        }
+
+        .podcast-header {
+            display: flex;
+            align-items: center;
+            gap: 1.2rem;
+            margin-bottom: 1.2rem;
+        }
+
+        .podcast-header .mic-icon {
+            background: #d75a4a;
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            box-shadow: 0 6px 0 #863526;
+        }
+
+        .podcast-header p {
+            font-size: 1.3rem;
+            font-weight: 300;
+            background: #1f4053;
+            padding: 0.5rem 1.4rem;
+            border-radius: 40px;
+            letter-spacing: 0.3px;
+            border: 1px solid #87b9d1;
+        }
+
+        .audio-simulado {
+            background: #0a1922;
+            border-radius: 60px;
+            padding: 0.5rem 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            border: 1px solid #4f7e99;
+        }
+
+        .play-badge {
+            background: #1db954;
+            border-radius: 30px;
+            padding: 0.4rem 1.2rem;
+            font-weight: 600;
+            font-size: 0.9rem;
+            color: black;
+            display: flex;
+            align-items: center;
+            gap: 0.4rem;
+            cursor: pointer;
+            transition: 0.15s;
+            border: none;
+        }
+
+        .play-badge:hover {
+            background: #1ed760;
+            transform: scale(1.02);
+        }
+
+        .play-badge:active {
+            transform: scale(0.98);
+        }
+
+        .audio-simulado span {
+            color: #b1e6ff;
+            font-size: 0.95rem;
+        }
+
+        .ley-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin: 2rem 0 1rem;
+        }
+
+        .ley-card {
+            background: white;
+            border-radius: 2.2rem;
+            padding: 1.8rem 1.5rem;
+            box-shadow: 0 16px 28px -12px #2f4b70, 0 6px 8px -4px #bacde0;
+            transition: transform 0.1s ease;
+            border: 1px solid #ebf5ff;
+        }
+
+        .ley-card:hover {
+            transform: translateY(-6px);
+        }
+
+        .badge-ley {
+            background: #0b3b4b;
+            color: white;
+            font-size: 1rem;
+            padding: 0.2rem 1.2rem;
+            border-radius: 50px;
+            width: fit-content;
+            margin-bottom: 0.8rem;
+            font-weight: 600;
+            border: 1px solid #67b1d4;
+        }
+
+        .descripcion {
+            font-size: 1.15rem;
+            line-height: 1.5;
+            color: #173847;
+            margin: 0.8rem 0 1.5rem;
+            background: #e4f0f9;
+            padding: 1rem 1.3rem;
+            border-radius: 1.5rem;
+            border-left: 6px solid #2c7da0;
+        }
+
+        .lista-ejemplos {
+            list-style: none;
+        }
+
+        .lista-ejemplos li {
+            background: #f3f9ff;
+            margin: 0.7rem 0;
+            padding: 0.9rem 1.2rem;
+            border-radius: 1.5rem;
+            font-weight: 500;
+            color: #013a4b;
+            border: 1px solid #c5e2f0;
+            box-shadow: inset 0 1px 4px #ffffff, 0 4px 6px -6px black;
+            display: flex;
+            align-items: flex-start;
+            gap: 0.6rem;
+        }
+
+        .lista-ejemplos li::before {
+            content: "⚡";
+            font-size: 1.2rem;
+            color: #f6b83e;
+        }
+
+        .quiz-block {
+            background: #1f3442;
+            border-radius: 2.5rem;
+            padding: 2.5rem 2.2rem;
+            margin-top: 3rem;
+            color: #f0f8ff;
+            box-shadow: inset 0 -4px 0 #10232e, 0 24px 34px -18px #02131e;
+        }
+
+        .quiz-block h2 {
+            color: white;
+            border-left-color: #f5c542;
+            margin-top: 0;
+        }
+
+        .pregunta {
+            background: #263e50;
+            border-radius: 2rem;
+            padding: 1.5rem 2rem;
+            margin: 1.5rem 0;
+            border: 1px solid #618c9e;
+        }
+
+        .pregunta p {
+            font-size: 1.3rem;
+            font-weight: 500;
+            margin-bottom: 1rem;
+        }
+
+        .botones-vf {
+            display: flex;
+            gap: 1.5rem;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+
+        .btn-v, .btn-f {
+            border: none;
+            background: white;
+            color: #1c3e52;
+            font-weight: 700;
+            font-size: 1.3rem;
+            padding: 0.6rem 2rem;
+            border-radius: 60px;
+            cursor: pointer;
+            box-shadow: 0 6px 0 #878787;
+            transition: 0.08s linear;
+            min-width: 120px;
+            border: 2px solid transparent;
+        }
+
+        .btn-v {
+            background: #b7e3b0;
+            box-shadow: 0 5px 0 #4d7a4d;
+            color: #1f4f1f;
+        }
+        .btn-f {
+            background: #f5b1aa;
+            box-shadow: 0 5px 0 #a14d4d;
+            color: #631e1e;
+        }
+        .btn-v:hover, .btn-f:hover {
+            filter: brightness(0.96);
+            transform: translateY(-2px);
+            box-shadow: 0 7px 0 currentColor;
+        }
+        .btn-v:active, .btn-f:active {
+            transform: translateY(4px);
+            box-shadow: 0 1px 0 currentColor;
+        }
+
+        .feedback {
+            margin-top: 1.2rem;
+            padding: 1rem 1.8rem;
+            border-radius: 40px;
+            font-size: 1.1rem;
+            font-weight: 500;
+            background: #1f3a47;
+            color: #e3f2fd;
+            border-left: 12px solid #ffb347;
+            transition: 0.2s;
+        }
+
+        .feedback.correcto {
+            background: #214935;
+            border-left-color: #6fe38f;
+            color: #d2f5d9;
+        }
+
+        .feedback.incorrecto {
+            background: #4f2e38;
+            border-left-color: #ff7b7b;
+            color: #ffdbd4;
+        }
+
+        hr {
+            border: 1px dashed #548ea8;
+            margin: 2rem 0 0.5rem;
+        }
+
+        .footnote {
+            text-align: right;
+            color: #2c5770;
+            font-weight: 500;
+            margin-top: 1.5rem;
+            font-size: 0.95rem;
+        }
+    </style>
+</head>
+<body>
+<div class="tarjeta-principal">
+    <h1>
+        <span>⚛️</span> Tres leyes que mueven el mundo
+    </h1>
+
+    <!-- PODCAST SIMULADO (síntesis de voz) -->
+    <div class="podcast-container">
+        <div class="podcast-header">
+            <div class="mic-icon">🎙️</div>
+            <p>Microondas de la ciencia · Podcast exprés</p>
+        </div>
+        <div class="audio-simulado">
+            <button class="play-badge" id="playPodcastBtn">▶️ REPRODUCIR PODCAST</button>
+            <span>explicación de las tres leyes (voz sintetizada)</span>
+        </div>
+        <p style="margin-top: 0.8rem; font-size: 0.95rem; opacity:0.9; color: #b3ddf3;">🎧 Haz clic y escucha un breve resumen de las leyes de Newton (tu navegador leerá el texto).</p>
+    </div>
+
+    <!-- LEYES Y EJEMPLOS (tres por ley) -->
+    <div class="ley-grid">
+        <!-- Ley 1 -->
+        <div class="ley-card">
+            <div class="badge-ley">❶ Primera ley · Inercia</div>
+            <div class="descripcion">
+                <strong>Todo cuerpo permanece en reposo o movimiento rectilíneo uniforme</strong> a menos que una fuerza externa actúe sobre él.
+            </div>
+            <h3>📋 Ejemplos</h3>
+            <ul class="lista-ejemplos">
+                <li>Una taza sobre la mesa no se mueve a menos que la empujes.</li>
+                <li>Tu cuerpo se va hacia adelante cuando el freno del auto se aplica bruscamente.</li>
+                <li>Un disco de hockey deslizándose sobre hielo casi sin fricción sigue hasta chocar.</li>
+            </ul>
+        </div>
+        <!-- Ley 2 -->
+        <div class="ley-card">
+            <div class="badge-ley">❷ Segunda ley · F = m · a</div>
+            <div class="descripcion">
+                <strong>La fuerza neta sobre un objeto es igual al producto de su masa por su aceleración.</strong> (F = m·a)
+            </div>
+            <h3>📋 Ejemplos</h3>
+            <ul class="lista-ejemplos">
+                <li>Empujar un carrito de supermercado vacío vs lleno (más masa, menos aceleración).</li>
+                <li>Patear un balón de futbol: a mayor fuerza, mayor aceleración.</li>
+                <li>Un coche acelera más si tiene el motor potente (más fuerza) y peso ligero.</li>
+            </ul>
+        </div>
+        <!-- Ley 3 -->
+        <div class="ley-card">
+            <div class="badge-ley">❸ Tercera ley · Acción-reacción</div>
+            <div class="descripcion">
+                <strong>Por cada acción hay una reacción de igual magnitud y dirección opuesta.</strong> Las fuerzas siempre aparecen en pares.
+            </div>
+            <h3>📋 Ejemplos</h3>
+            <ul class="lista-ejemplos">
+                <li>Al remar en un bote, los remos empujan el agua hacia atrás; el agua empuja el bote hacia adelante.</li>
+                <li>Saltamos porque nuestros pies empujan la Tierra hacia abajo, y la Tierra nos empuja hacia arriba.</li>
+                <li>Un cohete expulsa gases hacia abajo, los gases lo impulsan hacia arriba.</li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- CUESTIONARIO VERDADERO / FALSO con feedback -->
+    <div class="quiz-block">
+        <h2>🧪 ¿Verdadero o falso? (pulsa y descubre)</h2>
+
+        <!-- Pregunta 1 -->
+        <div class="pregunta" id="p1">
+            <p>1️⃣ Si un objeto está en reposo, la primera ley de Newton afirma que no puede haber fuerzas actuando sobre él.</p>
+            <div class="botones-vf">
+                <button class="btn-v" onclick="evaluar('p1', 'falso')">Verdadero</button>
+                <button class="btn-f" onclick="evaluar('p1', 'verdadero')">Falso</button>
+            </div>
+            <div id="fb-p1" class="feedback"></div>
+        </div>
+
+        <!-- Pregunta 2 -->
+        <div class="pregunta" id="p2">
+            <p>2️⃣ La segunda ley explica que si duplicas la fuerza sobre un objeto de masa constante, su aceleración también se duplica.</p>
+            <div class="botones-vf">
+                <button class="btn-v" onclick="evaluar('p2', 'verdadero')">Verdadero</button>
+                <button class="btn-f" onclick="evaluar('p2', 'falso')">Falso</button>
+            </div>
+            <div id="fb-p2" class="feedback"></div>
+        </div>
+
+        <!-- Pregunta 3 -->
+        <div class="pregunta" id="p3">
+            <p>3️⃣ Cuando caminamos, el pie empuja el suelo hacia atrás (acción) y el suelo empuja nuestro pie hacia adelante (reacción).</p>
+            <div class="botones-vf">
+                <button class="btn-v" onclick="evaluar('p3', 'verdadero')">Verdadero</button>
+                <button class="btn-f" onclick="evaluar('p3', 'falso')">Falso</button>
+            </div>
+            <div id="fb-p3" class="feedback"></div>
+        </div>
+
+        <!-- Pregunta 4 -->
+        <div class="pregunta" id="p4">
+            <p>4️⃣ La tercera ley dice que la fuerza de acción y la de reacción actúan sobre el mismo cuerpo.</p>
+            <div class="botones-vf">
+                <button class="btn-v" onclick="evaluar('p4', 'falso')">Verdadero</button>
+                <button class="btn-f" onclick="evaluar('p4', 'verdadero')">Falso</button>
+            </div>
+            <div id="fb-p4" class="feedback"></div>
+        </div>
+    </div>
+
+    <hr>
+    <div class="footnote">
+        ⚡ Hecho para aprender dinámica · ejemplos cotidianos . Diseño Prof. Tgo. Alejandro Parnizari con asistencia de Claude IA
+    </div>
+</div>
+
+<script>
+    // Función para el podcast simulado con Web Speech API
+    document.getElementById('playPodcastBtn').addEventListener('click', function() {
+        // Texto del podcast explicando las tres leyes (español)
+        const podcastTexto = `Bienvenidos al microondas de la ciencia. Hoy: las tres leyes de Newton. 
+        Primera ley o ley de la inercia: un cuerpo mantiene su estado de reposo o movimiento rectilíneo uniforme a menos que una fuerza externa actúe sobre él. Por ejemplo, una pelota en el pasto no rodará sola. 
+        Segunda ley: la fuerza neta es igual a la masa por la aceleración. A más fuerza, más aceleración; a más masa, menos aceleración para la misma fuerza. 
+        Tercera ley: acción y reacción. Si empujas una pared, la pared te empuja a ti con la misma intensidad en sentido contrario. 
+        Recordad: inercia, F igual m por a, y acción-reacción. ¡Gracias por escuchar!`;
+
+        if ('speechSynthesis' in window) {
+            // Cancelar cualquier síntesis previa (evita superposición)
+            window.speechSynthesis.cancel();
+
+            const utterance = new SpeechSynthesisUtterance(podcastTexto);
+            utterance.lang = 'es-ES';
+            utterance.rate = 0.9;   // un poco más lento para entender
+            utterance.pitch = 1;
+            utterance.volume = 1;
+            utterance.voice = speechSynthesis.getVoices().find(voice => voice.lang.startsWith('es')) || null;
+            window.speechSynthesis.speak(utterance);
+        } else {
+            alert("Tu navegador no soporta la síntesis de voz. Pero aquí va el texto:\n\n" + podcastTexto);
+        }
+    });
+
+    // Función para manejar el quiz V/F con retroalimentación
+    function evaluar(preguntaId, respuestaSeleccionada) {
+        // Definir las respuestas correctas
+        const soluciones = {
+            p1: 'falso',    // La primera ley: pueden haber fuerzas equilibradas (suma cero)
+            p2: 'verdadero',
+            p3: 'verdadero',
+            p4: 'falso'      // Actúan sobre cuerpos diferentes
+        };
+
+        const esCorrecto = (soluciones[preguntaId] === respuestaSeleccionada);
+        const feedbackDiv = document.getElementById('fb-' + preguntaId);
+
+        // Limpiar clases previas y añadir nueva
+        feedbackDiv.classList.remove('correcto', 'incorrecto');
+
+        let mensaje = '';
+        if (esCorrecto) {
+            feedbackDiv.classList.add('correcto');
+            if (preguntaId === 'p1') mensaje = '✅ ¡Correcto! En realidad pueden existir fuerzas equilibradas (suma cero). La ley dice que si la fuerza neta es cero, permanece en reposo o MRU.';
+            else if (preguntaId === 'p2') mensaje = '✅ ¡Perfecto! F = m·a: si masa es constante, fuerza y aceleración son directamente proporcionales.';
+            else if (preguntaId === 'p3') mensaje = '✅ ¡Muy bien! Es un ejemplo clásico de acción-reacción al caminar.';
+            else if (preguntaId === 'p4') mensaje = '✅ ¡Correcto! Es falso: acción y reacción actúan sobre cuerpos distintos. Si actuaran sobre el mismo, nunca habría movimiento.';
+        } else {
+            feedbackDiv.classList.add('incorrecto');
+            if (preguntaId === 'p1') mensaje = '❌ Falso. Un objeto en reposo puede tener fuerzas actuando, siempre que estén equilibradas (fuerza neta cero).';
+            else if (preguntaId === 'p2') mensaje = '❌ Incorrecto. La segunda ley sí establece proporcionalidad directa: a doble fuerza (m constante), doble aceleración.';
+            else if (preguntaId === 'p3') mensaje = '❌ Falso. Eso es exactamente la tercera ley en acción (no confundir con inercia). Es verdadero, no falso.';
+            else if (preguntaId === 'p4') mensaje = '❌ Incorrecto. La tercera ley dice que las fuerzas de acción y reacción actúan sobre cuerpos diferentes, no sobre el mismo.';
+        }
+
+        feedbackDiv.textContent = mensaje;
+
+        // (opcional) Limpiar feedback después de varios segundos si se vuelve a elegir? mejor se sobreescribe.
+    }
+
+    // Precarga de voces para algunos navegadores (evita que la voz no esté lista)
+    window.speechSynthesis?.getVoices(); // simplemente para poblar
+</script>
+
+<!-- pequeña mejora: que al seleccionar una opción se resetee si luego se elige otra -->
+</body>
+</html>

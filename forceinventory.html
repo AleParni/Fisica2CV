@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quizz: Conceptos de Mecánica Newtoniana (FCI)</title>
+    <style>
+        :root {
+            --primary: #2c3e50;
+            --accent: #e74c3c;
+            --bg: #f4f7f6;
+            --card: #ffffff;
+            --success: #27ae60;
+        }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            background-color: var(--bg);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            height: 100vh;
+        }
+        header {
+            background: var(--primary);
+            color: white;
+            width: 100%;
+            padding: 1rem 0;
+            text-align: center;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+        }
+        .quiz-container {
+            position: relative;
+            flex-grow: 1;
+            width: 90%;
+            max-width: 900px;
+            margin: 20px 0;
+        }
+        .slide {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background: var(--card);
+            border-radius: 15px;
+            padding: 30px;
+            box-sizing: border-box;
+            display: none;
+            flex-direction: column;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+            overflow-y: auto;
+        }
+        .slide.active { display: flex; }
+        h2 { color: var(--primary); margin-top: 0; border-bottom: 2px solid var(--bg); padding-bottom: 10px; }
+        .question { font-size: 1.2rem; line-height: 1.5; margin: 15px 0; color: #333; }
+        .options { display: flex; flex-direction: column; gap: 10px; margin-bottom: 20px; }
+        .option {
+            padding: 12px 15px;
+            background: #f8f9fa;
+            border: 1px solid #dee2e6;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+        .option:hover { background: #e9ecef; }
+        .feedback {
+            display: none;
+            padding: 20px;
+            background: #d4edda;
+            color: #155724;
+            border-radius: 10px;
+            margin-top: auto;
+            border-left: 5px solid var(--success);
+        }
+        .controls {
+            width: 100%;
+            max-width: 900px;
+            padding: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-sizing: border-box;
+        }
+        button {
+            padding: 12px 25px;
+            font-size: 1rem;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+        .btn-nav { background: var(--primary); color: white; }
+        .btn-reveal { background: var(--accent); color: white; }
+        button:disabled { background: #ccc; cursor: not-allowed; }
+        .progress-text { font-weight: bold; color: var(--primary); }
+    </style>
+</head>
+<body>
+
+<header>
+    <h1>Evaluación Diagnóstica: Leyes de Newton</h1>
+</header>
+
+<div class="quiz-container" id="quiz">
+    <div class="slide active">
+        <h2>1. El canal circular</h2>
+        <p class="question">Una bola se desplaza a gran velocidad por un canal circular horizontal. Al salir del canal en el punto P:</p>
+        
+        <div class="options">
+            <div class="option">A) Sigue una trayectoria curva por un tramo.</div>
+            <div class="option">B) Se mueve en línea recta tangente a la salida.</div>
+            <div class="option">C) Se curva hacia afuera inmediatamente.</div>
+        </div>
+        <div class="feedback"><strong>Correcta: B.</strong> 1ª Ley: Sin fuerzas laterales del canal, el cuerpo mantiene su velocidad en línea recta (inercia).</div>
+    </div>
+
+    <div class="slide">
+        <h2>2. Impulso lateral en el espacio</h2>
+        <p class="question">Un cohete en el espacio vacío recibe un breve impulso lateral de su motor y luego lo apaga.</p>
+        
+        <div class="options">
+            <div class="option">A) Vuelve gradualmente a su camino original.</div>
+            <div class="option">B) Se detiene poco después de apagar el motor.</div>
+            <div class="option">C) Sigue una nueva trayectoria rectilínea con velocidad constante.</div>
+        </div>
+        <div class="feedback"><strong>Correcta: C.</strong> 1ª Ley: Al cesar la fuerza, la nueva velocidad resultante se mantiene constante por falta de fricción.</div>
+    </div>
+
+    <div class="slide">
+        <h2>3. Fuerza duplicada</h2>
+        <p class="question">Empujas una caja a velocidad constante. Si de repente duplicas la fuerza y la mantienes:</p>
+        
+        <div class="options">
+            <div class="option">A) La caja se moverá con una aceleración constante.</div>
+            <div class="option">B) La velocidad se duplicará y se mantendrá constante.</div>
+            <div class="option">C) La caja se detendrá por el exceso de fuerza.</div>
+        </div>
+        <div class="feedback"><strong>Correcta: A.</strong> 2ª Ley: Una fuerza neta constante ($F_{aplicada} > F_{roce}$) produce una aceleración constante.</div>
+    </div>
+
+    <div class="slide">
+        <h2>4. Caída de masas distintas</h2>
+        <p class="question">Se sueltan dos esferas del mismo tamaño, pero una es el doble de pesada que la otra (sin aire):</p>
+        
+        <div class="options">
+            <div class="option">A) La más pesada cae en la mitad del tiempo.</div>
+            <div class="option">B) Ambas caen con la misma aceleración y llegan juntas.</div>
+            <div class="option">C) La más ligera cae más rápido porque tiene menos inercia.</div>
+        </div>
+        <div class="feedback"><strong>Correcta: B.</strong> La aceleración de gravedad es independiente de la masa; la mayor fuerza en la pesada se compensa con su mayor inercia.</div>
+    </div>
+
+    <div class="slide">
+        <h2>5. Choque Camión-Auto</h2>
+        <p class="question">Un camión choca de frente con un auto pequeño en reposo. Durante el impacto:</p>
+        
+        <div class="options">
+            <div class="option">A) La fuerza del camión sobre el auto es mayor.</div>
+            <div class="option">B) La fuerza del auto sobre el camión es mayor.</div>
+            <div class="option">C) Las fuerzas son de igual magnitud.</div>
+        </div>
+        <div class="feedback"><strong>Correcta: C.</strong> 3ª Ley: Las fuerzas de interacción son siempre iguales y opuestas, sin importar las masas.</div>
+    </div>
+
+    <div class="slide">
+        <h2>6. Empuje en movimiento</h2>
+        <p class="question">Un auto empuja a un camión averiado y ambos están acelerando. La fuerza del auto sobre el camión es:</p>
+        
+        <div class="options">
+            <div class="option">A) Igual a la que el camión ejerce sobre el auto.</div>
+            <div class="option">B) Mayor, porque de lo contrario no acelerarían.</div>
+            <div class="option">C) Menor, porque el camión tiene más inercia.</div>
+        </div>
+        <div class="feedback"><strong>Correcta: A.</strong> 3ª Ley: El par acción-reacción es igual incluso en sistemas acelerados. El sistema acelera por la fuerza de fricción de las ruedas con el suelo.</div>
+    </div>
+
+    <div class="slide">
+        <h2>7. El Avión y el paquete</h2>
+        <p class="question">Un avión horizontal suelta un paquete. ¿Dónde está el avión cuando el paquete toca el suelo?</p>
+        
+        <div class="options">
+            <div class="option">A) Detrás del paquete.</div>
+            <div class="option">B) Directamente encima del paquete.</div>
+            <div class="option">C) Delante del paquete.</div>
+        </div>
+        <div class="feedback"><strong>Correcta: B.</strong> Inercia: El paquete conserva la velocidad horizontal del avión mientras cae.</div>
+    </div>
+
+    <div class="slide">
+        <h2>8. Tiro Vertical (Cúspide)</h2>
+        <p class="question">En el punto más alto de un lanzamiento vertical, la fuerza neta sobre el objeto es:</p>
+        
+        <div class="options">
+            <div class="option">A) Cero, porque se detiene un instante.</div>
+            <div class="option">B) Hacia abajo (peso).</div>
+            <div class="option">C) Hacia arriba por el impulso inicial.</div>
+        </div>
+        <div class="feedback"><strong>Correcta: B.</strong> La gravedad nunca deja de actuar; si la fuerza fuera cero, el objeto se quedaría flotando.</div>
+    </div>
+
+    <div class="slide">
+        <h2>9. El Mosquito y el Bus</h2>
+        <p class="question">Un mosquito choca contra el vidrio de un bus en marcha. La fuerza del impacto es:</p>
+        
+        <div class="options">
+            <div class="option">A) Mayor en el mosquito.</div>
+            <div class="option">B) Mayor en el bus.</div>
+            <div class="option">C) Idéntica en ambos.</div>
+        </div>
+        <div class="feedback"><strong>Correcta: C.</strong> 3ª Ley: La magnitud de la fuerza es la misma. El efecto es distinto por la fragilidad y baja masa del mosquito.</div>
+    </div>
+
+    <div class="slide">
+        <h2>10. El Ascensor</h2>
+        <p class="question">Un ascensor sube a velocidad constante. La fuerza del cable comparada con el peso es:</p>
+        
+        <div class="options">
+            <div class="option">A) Mayor que el peso.</div>
+            <div class="option">B) Igual al peso.</div>
+            <div class="option">C) Menor que el peso.</div>
+        </div>
+        <div class="feedback"><strong>Correcta: B.</strong> Equilibrio dinámico: Si $v = cte$, entonces $a = 0$ y la fuerza neta debe ser nula.</div>
+    </div>
+
+    <div class="slide">
+        <h2>11. La Pelota en el aire</h2>
+        <p class="question">Tras patear un balón y mientras vuela (sin aire), ¿qué fuerzas actúan?</p>
+        
+        <div class="options">
+            <div class="option">A) Gravedad e impulso de la patada.</div>
+            <div class="option">B) Solo gravedad.</div>
+            <div class="option">C) Gravedad e inercia.</div>
+        </div>
+        <div class="feedback"><strong>Correcta: B.</strong> La "patada" solo es fuerza mientras hay contacto. En el aire, solo hay peso (la inercia es una propiedad, no una fuerza).</div>
+    </div>
+
+    <div class="slide">
+        <h2>12. El barco y la piedra</h2>
+        <p class="question">Sueltas una piedra desde el mástil de un barco que navega rápido y constante. La piedra cae:</p>
+        
+        <div class="options">
+            <div class="option">A) Detrás del mástil.</div>
+            <div class="option">B) Exactamente al pie del mástil.</div>
+            <div class="option">C) Delante del mástil.</div>
+        </div>
+        <div class="feedback"><strong>Correcta: B.</strong> Inercia: La piedra ya se mueve con el barco antes de ser soltada y mantiene esa velocidad horizontal.</div>
+    </div>
+</div>
+
+<div class="controls">
+    <button class="btn-nav" id="prevBtn" onclick="move(-1)" disabled>Anterior</button>
+    <span class="progress-text" id="progress">1 / 12</span>
+    <button class="btn-nav" id="nextBtn" onclick="move(1)">Siguiente</button>
+    <button class="btn-reveal" onclick="reveal()">Revelar Respuesta</button>
+</div>
+
+<script>
+    let current = 0;
+    const slides = document.querySelectorAll('.slide');
+    const total = slides.length;
+
+    function move(step) {
+        slides[current].classList.remove('active');
+        document.querySelectorAll('.feedback')[current].style.display = 'none';
+        
+        current += step;
+        slides[current].classList.add('active');
+        
+        document.getElementById('prevBtn').disabled = current === 0;
+        document.getElementById('nextBtn').disabled = current === total - 1;
+        document.getElementById('progress').innerText = `${current + 1} / ${total}`;
+    }
+
+    function reveal() {
+        document.querySelectorAll('.feedback')[current].style.display = 'block';
+    }
+
+    // Teclado
+    document.addEventListener('keydown', (e) => {
+        if (e.key === "ArrowRight" && current < total - 1) move(1);
+        if (e.key === "ArrowLeft" && current > 0) move(-1);
+    });
+</script>
+
+</body>
+</html>

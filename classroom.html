@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🌐 Guía: Abrir HTML en tu celular y usar Classroom</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
+        }
+
+        body {
+            background: #e1eef7;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            padding: 25px 16px;
+        }
+
+        .contenedor-amigable {
+            max-width: 900px;
+            width: 100%;
+            background: rgba(255, 255, 255, 0.9);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border-radius: 48px 48px 32px 32px;
+            box-shadow: 0 30px 50px rgba(24, 64, 84, 0.25), 0 10px 20px rgba(0, 30, 50, 0.15);
+            padding: 2rem 1.8rem;
+            border: 2px solid rgba(255, 255, 255, 0.7);
+        }
+
+        h1 {
+            font-size: 2.4rem;
+            font-weight: 700;
+            color: #003153;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            border-bottom: 5px solid #42a5c5;
+            padding-bottom: 18px;
+            margin-bottom: 28px;
+        }
+
+        h1 span {
+            background: #1b5168;
+            color: white;
+            font-size: 2rem;
+            padding: 8px 20px;
+            border-radius: 70px;
+            box-shadow: 0 7px 0 #0b2d3a;
+        }
+
+        h2 {
+            font-size: 1.9rem;
+            font-weight: 600;
+            color: #0d4b60;
+            margin: 35px 0 18px 10px;
+            border-left: 16px solid #ffaa33;
+            padding-left: 16px;
+        }
+
+        h3 {
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: #145a72;
+            margin: 25px 0 12px 0;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .card-problema {
+            background: #ffecbb;
+            border-radius: 36px;
+            padding: 28px 25px;
+            margin: 15px 0 25px;
+            border: 2px solid #e6b87e;
+            box-shadow: 0 12px 0 #aa7c54, 0 15px 25px -10px #594d3c;
+        }
+
+        .icono-alerta {
+            font-size: 3rem;
+            background: #d84f3f;
+            display: inline-block;
+            width: 70px;
+            height: 70px;
+            line-height: 70px;
+            text-align: center;
+            border-radius: 30px;
+            color: white;
+            margin-right: 16px;
+            box-shadow: 0 8px 0 #792f26;
+        }
+
+        .resaltado {
+            background: #1e2f3b;
+            color: #ffd966;
+            font-family: monospace;
+            font-size: 1.2rem;
+            padding: 8px 16px;
+            border-radius: 50px;
+            display: inline-block;
+            margin: 8px 0;
+            border: 2px solid #fdad5c;
+        }
+
+        .steps {
+            display: flex;
+            flex-direction: column;
+            gap: 22px;
+            margin: 30px 0;
+        }
+
+        .step {
+            background: #cbe4f5;
+            border-radius: 30px;
+            padding: 18px 25px;
+            display: flex;
+            align-items: center;
+            gap: 22px;
+            border: 2px solid #4682b4;
+            box-shadow: 0 9px 0 #2d577a, 0 10px 20px -8px #1e3b4b;
+            flex-wrap: wrap;
+        }
+
+        .step-num {
+            background: #174f69;
+            color: white;
+            font-size: 2.2rem;
+            font-weight: bold;
+            width: 70px;
+            height: 70px;
+            border-radius: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: inset 0 -4px 0 #063142, 0 8px 0 #0b394b;
+        }
+
+        .step p {
+            font-size: 1.25rem;
+            font-weight: 500;
+            color: #001f2b;
+            flex: 1;
+        }
+
+        .phone-img {
+            background: #0b2635;
+            border-radius: 40px;
+            padding: 15px 20px;
+            color: #cfecfd;
+            font-size: 1.3rem;
+            font-weight: 400;
+            border: 3px solid #77b9dd;
+        }
+
+        .botones-classroom {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 30px;
+            justify-content: center;
+            margin: 40px 0 20px;
+        }
+
+        .boton-class {
+            background: #f9fcff;
+            border-radius: 48px;
+            padding: 24px 22px;
+            flex: 1 1 200px;
+            text-align: center;
+            box-shadow: 0 15px 0 #0e3b4b, 0 20px 25px -15px #03222e;
+            border: 2px solid white;
+        }
+
+        .boton-class .emoji {
+            font-size: 3.5rem;
+            display: block;
+            margin-bottom: 15px;
+        }
+
+        .boton-class h4 {
+            font-size: 2rem;
+            color: #163a4a;
+            margin-bottom: 8px;
+        }
+
+        .boton-class p {
+            font-size: 1.15rem;
+            background: #ebf7ff;
+            padding: 15px;
+            border-radius: 32px;
+            color: #003853;
+            border: 2px solid #a7d0e5;
+        }
+
+        .classroom-colors {
+            background: #206b4d;
+            background: linear-gradient(125deg, #1e7e5c, #0b5342);
+            border-radius: 50px;
+            padding: 25px;
+            margin-top: 30px;
+            color: white;
+            border: 3px solid #f4c542;
+        }
+
+        .footer-simple {
+            margin-top: 45px;
+            text-align: center;
+            background: #bcd9e6;
+            border-radius: 60px;
+            padding: 18px;
+            font-weight: 600;
+            color: #03303f;
+            font-size: 1.2rem;
+            border: 2px solid white;
+        }
+
+        hr {
+            border: 3px dashed #4390b9;
+            margin: 40px 0 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="contenedor-amigable">
+        <h1>
+            <span>📲</span>  Cómo abrir archivos HTML  <br>  y usar Google Classroom
+        </h1>
+
+        <!-- SECCIÓN PROBLEMA (Doble clic) -->
+        <div class="card-problema">
+            <div style="display: flex; align-items: center; margin-bottom: 18px;">
+                <div class="icono-alerta">⚠️</div>
+                <h2 style="margin: 0; border-left: none; color:#4d2e1b;">El lío del doble clic</h2>
+            </div>
+            <p style="font-size:1.4rem; font-weight:500; color:#341f0e;">“¡Solo veo código raro! ”  😫</p>
+            <p style="font-size:1.2rem; margin: 15px 0 5px;">Si haces doble clic al archivo <span class="resaltado">.html</span> desde la app de “Archivos” a veces se abre un montón de texto extraño (etiquetas, letras). Eso es el <strong>código fuente</strong>, pero nosotros queremos ver la <strong>página bonita</strong>.</p>
+            <p style="font-size:1.2rem; background:#ffdba5; border-radius: 60px; padding: 12px 20px; margin-top: 15px;"><strong>No te preocupes, es normal</strong> porque el celular no sabe aún que debe abrirlo como página web. ¡Aquí tienes el truco!</p>
+        </div>
+
+        <!-- SOLUCIÓN PASO A PASO -->
+        <h2>🧩 Solución mágica: abrir desde la carpeta correcta</h2>
+        <div class="steps">
+            <div class="step">
+                <div class="step-num">1</div>
+                <p>Abre la aplicación <strong>📁 Archivos</strong> o <strong>📂 Mis archivos</strong> de tu celular (puede llamarse “Descargas” o “Documentos”).</p>
+            </div>
+            <div class="step">
+                <div class="step-num">2</div>
+                <p>Busca la carpeta <strong>⬇️ Descargas (Downloads)</strong> . Ahí se guardó el archivo que descargaste de Classroom.</p>
+            </div>
+            <div class="step">
+                <div class="step-num">3</div>
+                <p>Localiza el archivo terminado en <span style="background:#05242f; color:#bcf0ff; padding:4px 18px; border-radius: 40px;">.html</span>.</p>
+            </div>
+            <div class="step">
+                <div class="step-num">4</div>
+                <div style="flex:1">
+                    <p><strong>Púlsalo una vez</strong> (no doble clic). En el menú que aparece elige <strong>“Abrir con”</strong> o <strong>“Open with”</strong> y selecciona <strong>🌐 Chrome / Navegador / Internet</strong>.</p>
+                    <div class="phone-img">⬇️ Así se verá: [Abrir con Chrome] o [Safari] en iPhone</div>
+                </div>
+            </div>
+        </div>
+
+        <div style="background: #b5dcee; border-radius: 40px; padding: 20px; text-align: center; border: 3px solid #0a6375; font-size:1.3rem;">
+            💡 En <strong>iPhone</strong> (Safari): una vez descargado, mantén presionado el archivo y elige “Compartir” → “Abrir en Safari”. ¡Listo!
+        </div>
+
+        <!-- mini recordatorio: también se puede classroom -->
+        <h2 style="margin-top: 50px;">📚 Google Classroom – tus 3 botones secretos</h2>
+        <p style="font-size:1.25rem; margin-left: 12px;">Dentro de cada clase te encuentras con tres pestañas. Son como tu cuartel general. Vamos a ver qué hace cada una.</p>
+
+        <div class="botones-classroom">
+            <div class="boton-class">
+                <span class="emoji">📢</span>
+                <h4>Novedades</h4>
+                <p>Es el <strong>muro</strong> de la clase. Aquí el profe publica anuncios, recordatorios y mensajes importantes. También puedes comentar (si el profe lo permite).</p>
+                <div style="margin-top: 12px; background: #c5e1f0; border-radius: 30px; padding: 6px;">👀 “Recordatorio: escrito el viernes”</div>
+            </div>
+            <div class="boton-class">
+                <span class="emoji">📋</span>
+                <h4>Trabajo en clase</h4>
+                <p>El <strong>corazón</strong> de las tareas. Aquí ves todas las asignaciones, cuestionarios y materiales organizados por tema. Desde aquí entregas tus deberes.</p>
+                <div style="margin-top: 12px; background: #c5e1f0; border-radius: 30px; padding: 6px;">✅ “Tarea: leyes de Newton”</div>
+            </div>
+            <div class="boton-class">
+                <span class="emoji">👥</span>
+                <h4>Personas</h4>
+                <p>Lista de <strong>compañeros y profes</strong>. Aquí ves quién está en la clase y puedes enviar un correo a alguien del grupo.</p>
+                <div style="margin-top: 12px; background: #c5e1f0; border-radius: 30px; padding: 6px;">📧 “Profe: Parni""</div>
+            </div>
+        </div>
+
+        <!-- Consejo extra sobre descarga en Classroom -->
+        <div class="classroom-colors">
+            <h3 style="color: #fee7a0; margin-top: 0;">📎 ¿Cómo descargar el archivo HTML desde Classroom?</h3>
+            <p style="font-size:1.2rem;">Cuando el profesor publique un archivo .html en la pestaña <strong>“Trabajo en clase”</strong> o en <strong>“Novedades”</strong>:</p>
+            <ul style="font-size:1.2rem; margin-left: 25px; line-height: 1.8;">
+                <li>🔹 Toca el archivo (se previsualizará a veces).</li>
+                <li>🔹 Busca el icono <strong>⬇️ descargar</strong> (tres puntos ⋮ → Descargar).</li>
+                <li>🔹 Luego vas a Archivos/Descargas y aplicas los pasos de arriba.</li>
+            </ul>
+            <p style="background: #2d8870; border-radius: 60px; padding: 10px; margin-top: 10px;">⚠️ Si abres el archivo directo desde Classroom a veces se ve el código. Mejor descargar y abrir con navegador.</p>
+        </div>
+
+        <hr>
+        <div class="footer-simple">
+            🌟  Resumen:  <strong>Descarga → ve a Archivos → Abrir con navegador → disfruta la página</strong>.  Y en Classroom: Novedades (anuncios) / Trabajo en clase (tareas) / Personas (compañeros). ¡Ya lo sabes!
+        </div>
+
+        <!-- Botón super sencillo de ejemplo visual (no funcional, solo ilustrativo) -->
+        <div style="margin-top: 40px; display: flex; justify-content: center;">
+            <div style="background: #30336b; color: white; padding: 20px 32px; border-radius: 80px; font-size: 1.5rem; border: 5px solid #f9ca24;">✅ ¡Ya eres un/@ expert@ abriendo HTML!</div>
+        </div>
+    </div>
+</body>
+</html>

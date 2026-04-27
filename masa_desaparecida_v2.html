@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Laboratorio de Física: La Masa Desaparecida</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #2563eb;
+            --secondary: #64748b;
+            --bg: #f8fafc;
+            --card: #ffffff;
+            --text: #1e293b;
+            --accent: #f59e0b;
+        }
+
+        body {
+            font-family: 'Roboto', sans-serif;
+            background-color: var(--bg);
+            color: var(--text);
+            margin: 0;
+            padding: 0;
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        header {
+            text-align: center;
+            padding: 40px 0;
+            background: linear-gradient(135deg, #1e293b 0%, #334155 100%);
+            color: white;
+            border-radius: 12px;
+            margin-bottom: 30px;
+            box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1);
+        }
+
+        /* Sistema de Pestañas */
+        .tabs {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+            border-bottom: 2px solid #e2e8f0;
+        }
+
+        .tab-btn {
+            padding: 12px 24px;
+            cursor: pointer;
+            border: none;
+            background: none;
+            font-weight: bold;
+            color: var(--secondary);
+            transition: 0.3s;
+            border-bottom: 3px solid transparent;
+        }
+
+        .tab-btn.active {
+            color: var(--primary);
+            border-bottom-color: var(--primary);
+        }
+
+        .tab-content {
+            display: none;
+            background: var(--card);
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+        }
+
+        .tab-content.active { display: block; }
+
+        /* Estilos de Contenido */
+        h2 { color: var(--primary); border-left: 5px solid var(--accent); padding-left: 15px; }
+        
+        .prediction-box {
+            background: #fffbeb;
+            border: 1px solid #fde68a;
+            padding: 20px;
+            border-radius: 8px;
+            margin: 20px 0;
+        }
+
+        textarea {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #cbd5e1;
+            border-radius: 6px;
+            margin-top: 10px;
+            font-family: inherit;
+        }
+
+        /* Simulador */
+        .sim-container {
+            display: grid;
+            grid-template-columns: 1fr 300px;
+            gap: 30px;
+            align-items: center;
+        }
+
+        .balanza-visual {
+            background: #e2e8f0;
+            height: 300px;
+            border-radius: 12px;
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: flex-end;
+            padding-bottom: 20px;
+        }
+
+        .display-digital {
+            background: #111;
+            color: #22c55e;
+            font-family: 'Fira Code', monospace;
+            padding: 10px 20px;
+            border-radius: 4px;
+            font-size: 24px;
+            margin-bottom: 40px;
+        }
+
+        .controls {
+            background: #f1f5f9;
+            padding: 20px;
+            border-radius: 8px;
+        }
+
+        /* Cuestionario */
+        .question {
+            margin-bottom: 20px;
+            padding: 15px;
+            border-bottom: 1px solid #f1f5f9;
+        }
+
+        .options-btn {
+            margin-top: 10px;
+            display: flex;
+            gap: 10px;
+        }
+
+        .btn-q {
+            padding: 8px 16px;
+            border: 1px solid #cbd5e1;
+            background: white;
+            cursor: pointer;
+            border-radius: 4px;
+        }
+
+        .btn-q.correct { background: #dcfce7; border-color: #22c55e; }
+        .btn-q.wrong { background: #fee2e2; border-color: #ef4444; }
+
+        /* Footer */
+        footer {
+            margin-top: 50px;
+            padding: 40px 0;
+            border-top: 2px solid #e2e8f0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .profesor-info {
+            text-align: right;
+        }
+
+        .signature-space {
+            margin-top: 10px;
+            font-weight: bold;
+            font-size: 18px;
+            color: var(--primary);
+            border-bottom: 2px solid #1e293b;
+            min-width: 250px;
+            display: inline-block;
+        }
+
+        @media print {
+            .tabs, .controls, .no-print { display: none !important; }
+            .tab-content { display: block !important; box-shadow: none; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <header>
+        <h1>Física Experimental: Hidrostática</h1>
+        <p>Estudio de fuerzas y el Principio de Arquímedes</p>
+    </header>
+
+    <div class="tabs no-print">
+        <button class="tab-btn active" onclick="openTab(event, 'guia')">1. Guía e Indagación</button>
+        <button class="tab-btn" onclick="openTab(event, 'simulador')">2. Simulador Interactivo</button>
+        <button class="tab-btn" onclick="openTab(event, 'evaluacion')">3. Autoevaluación</button>
+    </div>
+
+    <div id="guia" class="tab-content active">
+        <h2>Indagación: El Fenómeno</h2>
+        <p>Tenemos un recipiente con agua sobre una balanza digital. Colgamos una masa metálica de un soporte externo (hilo) y la sumergimos en el agua <strong>sin que toque el fondo</strong>.</p>
+        
+        <div class="prediction-box">
+            <strong>📝 Tu Predicción:</strong>
+            <p>¿Qué crees que sucederá con la lectura de la balanza al sumergir el objeto? ¿Aumentará, disminuirá o se mantendrá igual? Justifica tu respuesta antes de usar el simulador.</p>
+            <textarea rows="4" placeholder="Escribe aquí tu hipótesis física..."></textarea>
+        </div>
+
+        <h3>Materiales Sugeridos</h3>
+        <ul>
+            <li>Balanza digital (resolución 0.01g).</li>
+            <li>Vaso de bohemia con agua.</li>
+            <li>Objeto denso (plomo, bronce o aluminio).</li>
+            <li>Soporte universal e hilo.</li>
+        </ul>
+    </div>
+
+    <div id="simulador" class="tab-content">
+        <h2>Laboratorio Virtual</h2>
+        <div class="sim-container">
+            <div class="balanza-visual">
+                <div id="peso-visual" style="width: 40px; height: 40px; background: #475569; position: absolute; bottom: 120px; transition: 0.5s;"></div>
+                <div id="display" class="display-digital">300.00 g</div>
+                <div style="width: 200px; height: 20px; background: #94a3b8; border-radius: 4px;"></div>
+            </div>
+            
+            <div class="controls">
+                <label>Masa del Agua (g):</label>
+                <input type="range" id="mAgua" min="100" max="1000" value="300" oninput="updateSim()">
+                <br><br>
+                <label>Volumen del Objeto (cm³):</label>
+                <input type="range" id="vObj" min="0" max="100" value="0" oninput="updateSim()">
+                <p style="font-size: 12px; color: var(--secondary); margin-top: 10px;">
+                    *Al aumentar el volumen, el objeto se sumerge más.
+                </p>
+                <hr>
+                <div id="resultados-sim" style="font-size: 14px; margin-top: 10px;">
+                    Empuje calculado: 0.00 gf
+                </div>
+            </div>
+        </div>
+        
+        <div class="prediction-box" style="margin-top: 30px; background: #f0fdf4; border-color: #bbf7d0;">
+            <strong>✅ Contrastación:</strong>
+            <p>Compara el resultado del simulador con tu predicción inicial. ¿Fue correcto tu razonamiento? Explica la aparición de la "fuerza extra" en la balanza basándote en la Tercera Ley de Newton.</p>
+            <textarea rows="4" placeholder="Análisis de los resultados..."></textarea>
+        </div>
+    </div>
+
+    <div id="evaluacion" class="tab-content">
+        <h2>Verdadero o Falso: Orientación</h2>
+        <p>Responde a estas preguntas para verificar si comprendes las fuerzas en juego.</p>
+        
+        <div class="question" id="q1">
+            <p>1. La balanza marca un aumento de peso porque el objeto está empujando el fondo del vaso.</p>
+            <div class="options-btn">
+                <button class="btn-q" onclick="check(this, false)">Verdadero</button>
+                <button class="btn-q" onclick="check(this, true)">Falso</button>
+            </div>
+        </div>
+
+        <div class="question" id="q2">
+            <p>2. Según la 3ª Ley de Newton, si el agua ejerce un empuje hacia arriba sobre el objeto, el objeto ejerce una fuerza igual hacia abajo sobre el agua.</p>
+            <div class="options-btn">
+                <button class="btn-q" onclick="check(this, true)">Verdadero</button>
+                <button class="btn-q" onclick="check(this, false)">Falso</button>
+            </div>
+        </div>
+
+        <div class="question" id="q3">
+            <p>3. El aumento en la lectura de la balanza es numéricamente igual al valor del empuje (E).</p>
+            <div class="options-btn">
+                <button class="btn-q" onclick="check(this, true)">Verdadero</button>
+                <button class="btn-q" onclick="check(this, false)">Falso</button>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <div class="credits">
+            <p>© 2026 - Prof. Alejandro Parnizari</p>
+            <p style="font-size: 11px; opacity: 0.7;">Desarrollado con asistencia de Gemini IA</p>
+        </div>
+        <div class="profesor-info">
+            <span style="font-size: 12px; color: var(--secondary); text-transform: uppercase;"> </span><br>
+            <div class="signature-space">
+                
+            </div>
+        </div>
+    </footer>
+</div>
+
+<script>
+    // Gestión de Pestañas
+    function openTab(evt, tabName) {
+        var i, tabcontent, tablinks;
+        tabcontent = document.getElementsByClassName("tab-content");
+        for (i = 0; i < tabcontent.length; i++) {
+            tabcontent[i].style.display = "none";
+        }
+        tablinks = document.getElementsByClassName("tab-btn");
+        for (i = 0; i < tablinks.length; i++) {
+            tablinks[i].className = tablinks[i].className.replace(" active", "");
+        }
+        document.getElementById(tabName).style.display = "block";
+        evt.currentTarget.className += " active";
+    }
+
+    // Lógica del Simulador
+    function updateSim() {
+        const mAgua = parseFloat(document.getElementById('mAgua').value);
+        const vObj = parseFloat(document.getElementById('vObj').value);
+        const display = document.getElementById('display');
+        const visual = document.getElementById('peso-visual');
+        const res = document.getElementById('resultados-sim');
+
+        // El empuje es igual al peso del volumen desalojado (Asumiendo ρ agua = 1g/cm³)
+        const empuje = vObj; 
+        const lecturaFinal = mAgua + empuje;
+
+        display.innerText = lecturaFinal.toFixed(2) + " g";
+        res.innerHTML = `Masa Agua: ${mAgua}g | Empuje generado: ${empuje.toFixed(2)} gf`;
+        
+        // Efecto visual
+        visual.style.bottom = (120 - vObj/2) + "px";
+        visual.style.opacity = vObj > 0 ? "1" : "0.5";
+    }
+
+    // Lógica del Cuestionario
+    function check(btn, isCorrect) {
+        const parent = btn.parentElement;
+        const buttons = parent.querySelectorAll('.btn-q');
+        
+        buttons.forEach(b => {
+            b.classList.remove('correct', 'wrong');
+            b.disabled = true;
+        });
+
+        if (isCorrect) {
+            btn.classList.add('correct');
+        } else {
+            btn.classList.add('wrong');
+        }
+    }
+
+    // Inicializar simulador
+    updateSim();
+</script>
+
+</body>
+</html>
