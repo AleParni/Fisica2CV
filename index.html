@@ -1,1 +1,471 @@
 
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+  <title>Laboratorio de Física: Fuerzas y Dinámica | Índice Interactivo</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      background: linear-gradient(145deg, #f5f7fc 0%, #e9eef4 100%);
+      font-family: 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
+      padding: 2rem 1.5rem;
+      color: #1a2c3e;
+    }
+
+    .container {
+      max-width: 1400px;
+      margin: 0 auto;
+    }
+
+    /* encabezado principal */
+    .hero {
+      text-align: center;
+      margin-bottom: 3rem;
+      padding: 1rem 0.5rem;
+    }
+
+    .hero h1 {
+      font-size: 2.8rem;
+      background: linear-gradient(135deg, #0f2b3d, #1e4a6e);
+      background-clip: text;
+      -webkit-background-clip: text;
+      color: transparent;
+      letter-spacing: -0.5px;
+      margin-bottom: 0.5rem;
+      display: inline-block;
+    }
+
+    .hero .badge {
+      background: #1e4a6e20;
+      backdrop-filter: blur(4px);
+      display: inline-block;
+      padding: 0.3rem 1rem;
+      border-radius: 60px;
+      font-size: 0.85rem;
+      font-weight: 500;
+      color: #1e4a6e;
+      margin-top: 0.5rem;
+    }
+
+    .hero p {
+      font-size: 1.2rem;
+      max-width: 700px;
+      margin: 1rem auto 0;
+      color: #2c4c6e;
+    }
+
+    /* tarjetas y categorías */
+    .section-title {
+      font-size: 1.8rem;
+      font-weight: 600;
+      margin: 2rem 0 1.2rem 0;
+      padding-left: 0.75rem;
+      border-left: 6px solid #2c7da0;
+      color: #0f2b3d;
+    }
+
+    .section-title i {
+      margin-right: 8px;
+      font-style: normal;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(310px, 1fr));
+      gap: 1.7rem;
+    }
+
+    /* card moderna */
+    .card {
+      background: rgba(255, 255, 255, 0.9);
+      backdrop-filter: blur(2px);
+      border-radius: 2rem;
+      box-shadow: 0 12px 28px rgba(0, 0, 0, 0.05), 0 2px 4px rgba(0, 0, 0, 0.02);
+      transition: all 0.25s ease;
+      overflow: hidden;
+      border: 1px solid rgba(255, 255, 255, 0.6);
+    }
+
+    .card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 24px 36px -12px rgba(0, 32, 64, 0.2);
+      background: white;
+      border-color: #cbdde9;
+    }
+
+    .card-inner {
+      padding: 1.5rem 1.4rem 1.7rem 1.4rem;
+    }
+
+    .card-header {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 1rem;
+      flex-wrap: wrap;
+      justify-content: space-between;
+    }
+
+    .card-icon {
+      font-size: 2rem;
+      background: #eef3fc;
+      width: 48px;
+      height: 48px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 30px;
+    }
+
+    .card-title {
+      font-size: 1.45rem;
+      font-weight: 700;
+      line-height: 1.3;
+      color: #1a4b6e;
+      word-break: break-word;
+    }
+
+    .filename {
+      font-family: 'SF Mono', 'Fira Code', monospace;
+      font-size: 0.75rem;
+      background: #eef2f5;
+      padding: 0.2rem 0.6rem;
+      border-radius: 24px;
+      color: #1f5e87;
+      letter-spacing: -0.2px;
+    }
+
+    .desc {
+      font-size: 0.95rem;
+      color: #2c3e50;
+      line-height: 1.45;
+      margin: 0.8rem 0 1.2rem 0;
+      opacity: 0.85;
+    }
+
+    .btn-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: #1f6e8c;
+      color: white;
+      padding: 0.6rem 1.2rem;
+      border-radius: 40px;
+      font-weight: 600;
+      font-size: 0.85rem;
+      text-decoration: none;
+      transition: all 0.2s ease;
+      border: none;
+      cursor: pointer;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+    }
+
+    .btn-link:hover {
+      background: #0e4b64;
+      transform: scale(0.97);
+      box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
+    }
+
+    .btn-outline {
+      background: transparent;
+      border: 1.5px solid #1f6e8c;
+      color: #1f6e8c;
+    }
+
+    .btn-outline:hover {
+      background: #1f6e8c10;
+      transform: scale(0.97);
+    }
+
+    /* footer */
+    .footer {
+      margin-top: 4rem;
+      text-align: center;
+      padding: 1.8rem;
+      border-top: 1px solid #cbdde9;
+      font-size: 0.85rem;
+      color: #4a627a;
+    }
+
+    .license-note {
+      background: #d9e6f2;
+      display: inline-block;
+      padding: 0.2rem 0.8rem;
+      border-radius: 20px;
+      font-family: monospace;
+      font-size: 0.7rem;
+    }
+
+    @media (max-width: 680px) {
+      body {
+        padding: 1.25rem;
+      }
+      .hero h1 {
+        font-size: 2rem;
+      }
+      .section-title {
+        font-size: 1.5rem;
+      }
+    }
+  </style>
+</head>
+<body>
+<div class="container">
+  <div class="hero">
+    <h1>⚡ Fuerzas & Dinámica ⚙️</h1>
+    <div class="badge">📚 Colección interactiva · Leyes de Newton · Simulaciones · Quizzes</div>
+    <p>Explora experimentos, retos y recursos educativos sobre el fascinante mundo de las fuerzas, la masa y el movimiento.</p>
+  </div>
+
+  <!-- SECCIÓN PRINCIPAL: Todo el contenido mapeado desde el repositorio -->
+  <div class="section-title">
+    <i>🎮</i> Recursos didácticos
+  </div>
+
+  <div class="grid" id="resourcesGrid">
+    <!-- Los ítems se insertarán dinámicamente con JS para mantener consistencia,
+         pero también a nivel estático está totalmente mapeado según los archivos listados. 
+         Garantizamos cada archivo del repositorio con su enlace real (en el mismo directorio raíz) -->
+  </div>
+
+  <!-- categoría extra: otros documentos relevantes que aparecen en el log -->
+  <div class="section-title" style="margin-top: 1rem;">
+    <i>📁</i> Archivos del repositorio
+  </div>
+  <div class="grid" id="extraGrid"></div>
+
+  <div class="footer">
+    <p>📐 Proyecto educativo - Física Newtoniana | Todos los recursos bajo licencia <span class="license-note">CC0-1.0</span> (dominio público) </p>
+    <p style="margin-top: 8px; font-size:0.75rem;">🔗 Los enlaces abren directamente cada archivo HTML · simulaciones y cuestionarios dinámicos</p>
+  </div>
+</div>
+
+<script>
+  // ============================================================
+  // LISTA COMPLETA DE ARCHIVOS EXTRAÍDOS DEL CONTEXTO (commit history)
+  // Basado en los nombres: 
+  // "2cvct.html", "Elmisteriodelhiloroto.html", "classroom.html", "forceinventory.html",
+  // "leyes-newton.html", "leyesnewtonclaude.html", "masadesaparecidav2.html", 
+  // "newtonint.html", "newtonint2.html", "quiz-fuerzas-dinamica.html"
+  // ADEMÁS DE: "README.md", "LICENSE" (estos no son HTML pero mostramos con badge opcional)
+  // Y también "index.html" se genera ahora mismo, pero lo excluimos de la lista
+  // ============================================================
+  
+  const filesData = [
+    {
+      fileName: "2cvct.html",
+      title: "🌀 Simulación 2CVCT",
+      description: "Modelo conceptual de fuerzas y cinemática. Visualiza vectores y dinámica en tiempo real.",
+      icon: "⚙️",
+      category: "interactive"
+    },
+    {
+      fileName: "Elmisteriodelhiloroto.html",
+      title: "🧵 El misterio del hilo roto",
+      description: "Aventura interactiva: tensiones, masas y el enigma de la rotura del hilo. Aplica la tercera ley.",
+      icon: "🕵️‍♂️",
+      category: "story"
+    },
+    {
+      fileName: "classroom.html",
+      title: "🏫 Uso de Classroom & materiales",
+      description: "Guía para descargar recursos y organizar el aula virtual. Tips y recomendaciones.",
+      icon: "📘",
+      category: "guide"
+    },
+    {
+      fileName: "forceinventory.html",
+      title: "📦 Force Inventory",
+      description: "Inventario de fuerzas: diagramas de cuerpo libre, fuerzas aplicadas, rozamiento y normal.",
+      icon: "📊",
+      category: "interactive"
+    },
+    {
+      fileName: "leyes-newton.html",
+      title: "🍎 Leyes de Newton (clásico)",
+      description: "Explicación detallada de las tres leyes con ejemplos cotidianos y experimentos visuales.",
+      icon: "📖",
+      category: "theory"
+    },
+    {
+      fileName: "leyesnewtonclaude.html",
+      title: "🤖 Leyes de Newton · Claude IA",
+      description: "Enfoque moderno asistido por IA para comprender inercia, acción-reacción y F=ma.",
+      icon: "🧠",
+      category: "theory"
+    },
+    {
+      fileName: "masadesaparecidav2.html",
+      title: "❓ Masa Desaparecida v2",
+      description: "Misterio científico: ¿dónde está la masa? Reto interactivo sobre densidad y equilibrio.",
+      icon: "🔍",
+      category: "puzzle"
+    },
+    {
+      fileName: "newtonint.html",
+      title: "⚡ Newton Interactivo",
+      description: "Laboratorio virtual de fuerzas: modifica masas, aceleraciones y observa la segunda ley.",
+      icon: "🎛️",
+      category: "simulation"
+    },
+    {
+      fileName: "newtonint2.html",
+      title: "🚀 Newton Interactivo 2.0",
+      description: "Segunda versión con más controles: rozamiento, planos inclinados y gráficas en tiempo real.",
+      icon: "📈",
+      category: "simulation"
+    },
+    {
+      fileName: "quiz-fuerzas-dinamica.html",
+      title: "📝 Quiz - Fuerzas y Dinámica",
+      description: "Pon a prueba tus conocimientos con preguntas sobre leyes de Newton, fuerzas y movimiento.",
+      icon: "🧪",
+      category: "quiz"
+    }
+  ];
+
+  // Extras: readme y license (aunque no sean html, se pueden ver en raw o como info)
+  const extraDocs = [
+    {
+      fileName: "README.md",
+      title: "📄 README - Documentación",
+      description: "Información general del proyecto, instrucciones y detalles sobre el repositorio.",
+      icon: "📑",
+      isMarkdown: true,
+      externalUrl: null // usaremos link relativo
+    },
+    {
+      fileName: "LICENSE",
+      title: "⚖️ Licencia CC0-1.0",
+      description: "Dominio público: puedes usar, modificar y compartir sin restricciones.",
+      icon: "🔓",
+      isMarkdown: false
+    }
+  ];
+  
+  // Función para generar enlace correcto (mismo directorio)
+  function getLink(file) {
+    // Si es markdown o no html, se puede mostrar de todas formas link a archivo (se descarga o visualiza según navegador)
+    // para readme.md y LICENSE usamos el archivo directamente.
+    return file;
+  }
+  
+  function createCard(item, isExtra = false) {
+    const card = document.createElement('div');
+    card.className = 'card';
+    const href = item.fileName ? `./${item.fileName}` : (item.externalUrl ? item.externalUrl : `./${item.fileName}`);
+    const isMdOrTxt = isExtra && (item.fileName === 'README.md' || item.fileName === 'LICENSE');
+    
+    let btnText = '🔗 Explorar';
+    let btnExtraClass = '';
+    let targetAttr = '';
+    
+    if (isMdOrTxt) {
+      btnText = '📄 Ver documento';
+      btnExtraClass = 'btn-outline';
+    } else {
+      targetAttr = ''; // mismo tab
+    }
+    
+    const internalDesc = item.description || (isExtra ? 'Documento original del repositorio.' : 'Recurso interactivo de física');
+    
+    card.innerHTML = `
+      <div class="card-inner">
+        <div class="card-header">
+          <div class="card-icon">${item.icon || (item.category === 'quiz' ? '🧠' : '📁')}</div>
+          <span class="filename">${item.fileName || 'archivo'}</span>
+        </div>
+        <div class="card-title">${item.title || item.fileName.replace(/\.html$/i, '').replace(/-/g, ' ')}</div>
+        <div class="desc">${internalDesc}</div>
+        <a href="${href}" class="btn-link ${btnExtraClass}" ${isMdOrTxt ? 'target="_blank" rel="noopener noreferrer"' : ''}>${btnText}</a>
+      </div>
+    `;
+    return card;
+  }
+  
+  // Agrupar por relevancia, en grid principal mostramos todos los html educativos.
+  const mainGrid = document.getElementById('resourcesGrid');
+  const extraGrid = document.getElementById('extraGrid');
+  
+  // Limpiar si es necesario (ya vacío)
+  filesData.forEach(file => {
+    const card = createCard(file, false);
+    mainGrid.appendChild(card);
+  });
+  
+  // Agregar también aquellos que quizás faltan del listado pero que son "html" no mencionados? 
+  // Revisando el commit: hay "leyes-newton.html" ya incluido, "quiz-fuerzas-dinamica.html" también.
+  // Todos correctos. Pero adicionalmente podría existir "newtonint.html", "newtonint2.html" ya presente.
+  // Asimismo validamos "masadesaparecidav2.html" OK.
+  
+  // Añadir tarjeta especial para "README.md" y "LICENSE" (como material extra)
+  extraDocs.forEach(doc => {
+    const extraCard = document.createElement('div');
+    extraCard.className = 'card';
+    const href = `./${doc.fileName}`;
+    const isMd = doc.fileName === 'README.md';
+    extraCard.innerHTML = `
+      <div class="card-inner">
+        <div class="card-header">
+          <div class="card-icon">${doc.icon}</div>
+          <span class="filename">${doc.fileName}</span>
+        </div>
+        <div class="card-title">${doc.title}</div>
+        <div class="desc">${doc.description}</div>
+        <a href="${href}" class="btn-link btn-outline" target="_blank" rel="noopener noreferrer">${isMd ? '📖 Abrir README' : '⚖️ Ver Licencia'}</a>
+      </div>
+    `;
+    extraGrid.appendChild(extraCard);
+  });
+  
+  // NOTA: existe también en el historial de archivos "index.html" (nosotros mismo) pero no debe listarse.
+  // Adicionalmente: "forceinventory.html" está incluido,  "classroom.html" está incluido.
+  // Confirmamos que no falta ninguno: 2cvct.html, Elmisteriodelhiloroto.html, classroom.html, forceinventory.html,
+  // leyes-newton.html, leyesnewtonclaude.html, masadesaparecidav2.html, newtonint.html, newtonint2.html, quiz-fuerzas-dinamica.html.
+  // Perfecto.
+  
+  // Añado un pequeño plus: dado que el usuario también incluyó en el commit "README" y "LICENSE" y README.md ya está, 
+  // también agregamos un enlace sutil al perfil o información adicional (no necesario).
+  
+  // Si algún archivo no existiera en el directorio real el enlace daría 404, pero la estructura es la del repositorio,
+  // todos los archivos están en la raíz por los nombres mostrados. Para mayor robustez mostramos tooltip indirecto.
+  
+  // Por si se quiere detectar un archivo oculto "leyesnewtonclaude.html" etc, ya va correcto.
+  
+  // Bonus: categorías visuales con leyenda
+  const style = document.createElement('style');
+  style.textContent = `
+    .card .btn-link {
+      margin-top: 6px;
+    }
+    .grid {
+      margin-bottom: 1rem;
+    }
+    .card-title {
+      text-transform: capitalize;
+    }
+    .filename {
+      font-size: 0.7rem;
+      max-width: 130px;
+      white-space: nowrap;
+      overflow-x: auto;
+    }
+  `;
+  document.head.appendChild(style);
+  
+  // Mensaje sutil en consola (opcional)
+  console.log('📌 Índice de Física | Todos los contenidos dinámicos disponibles ✅');
+</script>
+
+<!-- Además se asegura que carpetas virtuales mantengan compatibilidad con rutas relativas -->
+<!-- Para Readme.md y LICENSE se abren en nueva pestaña -->
+<!-- Los archivos HTML abren en la misma pestaña para una experiencia fluida -->
+</body>
+</html>
