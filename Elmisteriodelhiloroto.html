@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Práctica de Física: El Misterio de la Inercia</title>
+    
+    <script>
+      window.MathJax = {
+        tex: { inlineMath: [['$', '$'], ['\\(', '\\)']] }
+      };
+    </script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
+    <style>
+        :root { --primary: #2c3e50; --accent: #e74c3c; --bg: #f0f2f5; }
+        body { font-family: 'Segoe UI', Tahoma, sans-serif; line-height: 1.6; color: #333; max-width: 1000px; margin: 0 auto; padding: 20px; background: var(--bg); }
+        header { background: var(--primary); color: white; padding: 1.5rem; border-radius: 12px; text-align: center; margin-bottom: 2rem; }
+        .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 30px; }
+        .card { background: white; padding: 25px; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); margin-bottom: 25px; }
+        canvas { background: #fff; border: 1px solid #ddd; display: block; margin: 0 auto; border-radius: 8px; max-width: 100%; }
+        .controls { text-align: center; margin-top: 15px; }
+        button { padding: 12px 24px; font-weight: bold; cursor: pointer; border: none; border-radius: 5px; transition: 0.3s; margin: 5px; }
+        .btn-slow { background: #3498db; color: white; }
+        .btn-fast { background: var(--accent); color: white; }
+        .btn-reset { background: #95a5a6; color: white; }
+        .btn-print { background: #27ae60; color: white; margin-top: 15px; }
+        .formula-box { background: #f8f9fa; border-left: 5px solid var(--primary); padding: 15px; margin: 10px 0; }
+        textarea { width: 100%; padding: 15px; border: 1px solid #ccc; border-radius: 8px; font-family: inherit; resize: vertical; box-sizing: border-box; }
+        
+        /* Pie de página para personalización */
+        footer { margin-top: 50px; padding: 20px; border-top: 1px solid #ccc; text-align: center; color: #7f8c8d; font-size: 0.9em; }
+        .author-name { font-weight: bold; color: var(--primary); font-size: 1.1em; }
+
+        @media print {
+            .controls, .btn-print, header { display: none; }
+            body { background: white; padding: 0; }
+            .card { box-shadow: none; border: 1px solid #eee; }
+            footer { border: none; }
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <h1>Guía Experimental: El Misterio de los Hilos</h1>
+    <p>Estudio de la Segunda Ley de Newton e Inercia</p>
+</header>
+
+<div class="card">
+    <h2>1. Simulación Dinámica</h2>
+    <div class="grid">
+        <div style="text-align:center;">
+            <h3>Ensayo Virtual</h3>
+            <canvas id="simCanvas" width="350" height="400"></canvas>
+            <div class="controls">
+                <button class="btn-slow" onclick="runSim('slow')">Tirón Lento</button>
+                <button class="btn-fast" onclick="runSim('fast')">Tirón Rápido</button>
+                <button class="btn-reset" onclick="resetSim()">Reiniciar</button>
+            </div>
+        </div>
+        <div>
+            <h3>Diagrama de Cuerpo Libre (D.C.L.)</h3>
+            <canvas id="vectorCanvas" width="350" height="350"></canvas>
+            <p id="explanationText" style="font-style: italic; color: #666; font-size: 0.9em;">Selecciona un tipo de tirón para ver el análisis de fuerzas.</p>
+        </div>
+    </div>
+</div>
+
+<div class="card">
+    <h2>2. Fundamento Teórico</h2>
+    <div class="formula-box">
+        <strong>Tirón Suave:</strong> En condiciones de equilibrio ($a \approx 0$):
+        $$T_A = P + F_{ext}$$
+        La tensión en el hilo superior es siempre mayor porque carga con la masa y la fuerza externa.
+    </div>
+    <div class="formula-box">
+        <strong>Tirón Rápido:</strong> La inercia del cubo ($m$) limita la transmisión de la fuerza:
+        $$F_{ext} - T_A = m \cdot a$$
+        Si la aceleración es muy alta, el hilo B alcanza su límite de rotura antes de que el cubo logre moverse lo suficiente para tensar el hilo A.
+    </div>
+</div>
+
+<div class="card">
+    <h2>3. Reporte de Conclusiones</h2>
+    <p>Explica con tus palabras lo sucedido en el ensayo (puedes usar el concepto de inercia y masa):</p>
+    <textarea id="conclusion" rows="5" placeholder="Escribe aquí tu respuesta..."></textarea>
+    <div style="text-align: right;">
+        <button class="btn-print" onclick="window.print()">Imprimir / Guardar como PDF</button>
+    </div>
+</div>
+
+<footer>
+    <p>Diseñado por: <span class="author-name">prof.tgo. Alejandro Parnizari</span></p>
+    <p>Asistido por Gemini IA de Google</p>
+</footer>
+
+<script>
+    const canvas = document.getElementById('simCanvas');
+    const ctx = canvas.getContext('2d');
+    const vCanvas = document.getElementById('vectorCanvas');
+    const vCtx = vCanvas.getContext('2d');
+    let offset = 0;
+
+    function drawSystem(tA=0, tB=0, broken=null) {
+        ctx.clearRect(0,0,350,400);
+        ctx.fillStyle='#2c3e50'; ctx.fillRect(100,10,150,10); // Soporte
+        if(broken!=='A'){ ctx.beginPath(); ctx.lineWidth=2+(tA/10); ctx.strokeStyle='#333'; ctx.moveTo(175,20); ctx.lineTo(175,150+offset); ctx.stroke(); }
+        ctx.fillStyle='#a67c52'; ctx.strokeStyle='#5d4037'; ctx.fillRect(135,150+offset,80,80); ctx.strokeRect(135,150+offset,80,80);
+        if(broken!=='B'){ ctx.beginPath(); ctx.lineWidth=2+(tB/10); ctx.strokeStyle='#333'; ctx.moveTo(175,230+offset); ctx.lineTo(175,330+(offset*2)); ctx.stroke(); }
+        if(broken){ ctx.fillStyle='red'; ctx.font="bold 20px Arial"; ctx.fillText("¡ROTURA!", 130, broken==='A'?90:310); }
+    }
+
+    function drawVectors(fA, fB) {
+        vCtx.clearRect(0,0,350,350);
+        const cx=175, cy=175;
+        vCtx.fillStyle='#2c3e50'; vCtx.beginPath(); vCtx.arc(cx,cy,6,0,7); vCtx.fill();
+        if(fA>0) drawArrow(cx,cy,cx,cy-fA,'#3498db','Tensión A');
+        drawArrow(cx,cy,cx,cy+50,'#7f8c8d','Peso (P)');
+        if(fB>0) drawArrow(cx,cy,cx,cy+50+fB,'#e74c3c','Fuerza Ext');
+    }
+
+    function drawArrow(x1,y1,x2,y2,col,lab){
+        vCtx.strokeStyle=col; vCtx.fillStyle=col; vCtx.lineWidth=4;
+        vCtx.beginPath(); vCtx.moveTo(x1,y1); vCtx.lineTo(x2,y2); vCtx.stroke();
+        const head=12; const ang=Math.atan2(y2-y1,x2-x1);
+        vCtx.beginPath(); vCtx.moveTo(x2,y2); vCtx.lineTo(x2-head*Math.cos(ang-0.5),y2-head*Math.sin(ang-0.5)); vCtx.lineTo(x2-head*Math.cos(ang+0.5),y2-head*Math.sin(ang+0.5)); vCtx.fill();
+        vCtx.fillText(lab, x2+15, y2);
+    }
+
+    function runSim(type) {
+        let t=0; resetSim();
+        const info = document.getElementById('explanationText');
+        const loop = setInterval(() => {
+            t++;
+            if(type==='slow'){
+                offset+=0.3; drawSystem(t*2, t*2); drawVectors(50+t, t);
+                info.innerText = "Estado cuasi-estático: la fuerza se transmite íntegramente al hilo superior.";
+                if(t>60){ clearInterval(loop); drawSystem(0,0,'A'); }
+            } else {
+                drawSystem(0, t*5); drawVectors(50, t*4);
+                info.innerText = "Estado dinámico: la inercia del cuerpo pesado impide que el hilo A sienta la fuerza.";
+                if(t>25){ clearInterval(loop); drawSystem(0,0,'B'); }
+            }
+        }, 30);
+    }
+
+    function resetSim(){ offset=0; drawSystem(0,0); drawVectors(50,0); document.getElementById('explanationText').innerText="Selecciona una acción."; }
+    window.onload = resetSim;
+</script>
+
+</body>
+</html>
