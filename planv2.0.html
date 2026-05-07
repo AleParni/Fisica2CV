@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Planificación Física 2° CT 2026</title>
+    <style>
+        :root {
+            --primary: #1e3a8a;
+            --secondary: #3b82f6;
+            --accent: #f59e0b;
+            --bg: #f1f5f9;
+            --text: #1e293b;
+            --white: #ffffff;
+            --border: #cbd5e1;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            background-color: var(--bg);
+            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+            color: var(--text);
+            padding: 2rem 1rem;
+            line-height: 1.5;
+        }
+
+        .container {
+            max-width: 1100px;
+            background: var(--white);
+            margin: 0 auto;
+            padding: 3rem;
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+        }
+
+        header {
+            border-bottom: 4px solid var(--primary);
+            margin-bottom: 2.5rem;
+            padding-bottom: 1rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-end;
+        }
+
+        h1 {
+            font-size: 2rem;
+            color: var(--primary);
+            text-transform: uppercase;
+            letter-spacing: -0.5px;
+        }
+
+        .doc-info {
+            text-align: right;
+            font-size: 0.9rem;
+            color: #64748b;
+        }
+
+        .bloque {
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            margin-bottom: 2rem;
+            overflow: hidden;
+            transition: transform 0.2s;
+        }
+
+        .bloque:hover {
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+        }
+
+        .bloque-header {
+            background: var(--primary);
+            color: var(--white);
+            padding: 1rem 1.5rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .bloque-header h2 {
+            font-size: 1.1rem;
+            font-weight: 600;
+        }
+
+        .bloque-content {
+            display: grid;
+            grid-template-columns: 1.2fr 0.8fr;
+            gap: 1.5rem;
+            padding: 1.5rem;
+        }
+
+        .section-title {
+            font-size: 0.8rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            color: var(--secondary);
+            margin-bottom: 0.75rem;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .section-title::after {
+            content: "";
+            flex-grow: 1;
+            height: 1px;
+            background: #e2e8f0;
+        }
+
+        .metas-list, .temas-list {
+            list-style: none;
+            font-size: 0.9rem;
+            margin-bottom: 1rem;
+        }
+
+        .metas-list li, .temas-list li {
+            margin-bottom: 0.5rem;
+            padding-left: 1.2rem;
+            position: relative;
+        }
+
+        .metas-list li::before {
+            content: "•";
+            color: var(--accent);
+            position: absolute;
+            left: 0;
+            font-weight: bold;
+        }
+
+        .temas-list li::before {
+            content: "→";
+            color: var(--secondary);
+            position: absolute;
+            left: 0;
+        }
+
+        .estrategia {
+            background: #f8fafc;
+            border: 1px solid #e2e8f0;
+            padding: 1rem;
+            border-radius: 8px;
+            font-size: 0.85rem;
+            color: #475569;
+            margin-top: 1rem;
+        }
+
+        .badge {
+            display: inline-block;
+            padding: 0.25rem 0.6rem;
+            background: #dbeafe;
+            color: #1e40af;
+            border-radius: 4px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            margin-top: 0.5rem;
+        }
+
+        footer {
+            margin-top: 3rem;
+            padding-top: 1.5rem;
+            border-top: 1px solid var(--border);
+            text-align: center;
+            font-size: 0.8rem;
+            color: #94a3b8;
+        }
+
+        @media (max-width: 768px) {
+            .bloque-content { grid-template-columns: 1fr; }
+            header { flex-direction: column; align-items: flex-start; }
+        }
+
+        @media print {
+            body { background: white; padding: 0; }
+            .container { box-shadow: none; border: none; width: 100%; }
+            .bloque { break-inside: avoid; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <header>
+        <div>
+            <h1>Planificación Física 2026</h1>
+            <p style="color: var(--secondary); font-weight: 500;">2° Bachillerato Científico-Tecnológico (CT)</p>
+        </div>
+        <div class="doc-info">
+            <strong>Prof. Alejandro Parnizari</strong><br>
+            Criterio: Modelación Científica
+        </div>
+    </header>
+
+    <div class="bloque">
+        <div class="bloque-header">
+            <h2>BLOQUE 1: Modelización de la Dinámica Newtoniana</h2>
+            <span>Marzo - Abril</span>
+        </div>
+        <div class="bloque-content">
+            <div>
+                <div class="section-title">Metas de Desempeño Técnico</div>
+                <ul class="metas-list">
+                    <li>Lograr la distinción operativa entre masa e inercia mediante situaciones de conflicto cognitivo.</li>
+                    <li>Sistematizar la resolución de sistemas de fuerzas mediante cálculo vectorial y DCL.</li>
+                    <li>Validar modelos lineales en SCiDAVis mediante análisis de pendientes y residuos.</li>
+                </ul>
+                <div class="section-title">Estrategia de Mediación</div>
+                <div class="estrategia">
+                    <strong>Ciclo de Modelación:</strong> Uso de preguntas investigables sobre el movimiento para derivar en el uso del carril de Fletcher. Se prioriza el paso de la observación cualitativa a la ley matemática.
+                </div>
+            </div>
+            <div>
+                <div class="section-title">Ejes Temáticos</div>
+                <ul class="temas-list">
+                    <li>Leyes fundamentales (1°, 2° y 3°).</li>
+                    <li>Interacciones de contacto y a distancia.</li>
+                    <li>Teoría de errores y mediciones.</li>
+                </ul>
+                <div class="section-title">Evidencia de Logro</div>
+                <span class="badge">Informe Técnico Lab #1</span>
+                <span class="badge">Prueba de Modelado Vectorial</span>
+            </div>
+        </div>
+    </div>
+
+    <div class="bloque">
+        <div class="bloque-header">
+            <h2>BLOQUE 2: Estática y Dinámica de Sistemas Complejos</h2>
+            <span>Abril - Mayo</span>
+        </div>
+        <div class="bloque-content">
+            <div>
+                <div class="section-title">Metas de Desempeño Técnico</div>
+                <ul class="metas-list">
+                    <li>Analizar la eficiencia y ventaja mecánica en sistemas de poleas y planos inclinados.</li>
+                    <li>Modelar el equilibrio de cuerpos extensos mediante el concepto de torque y centro de masa.</li>
+                    <li>Predecir comportamientos en sistemas no inerciales y fuerzas centrales.</li>
+                </ul>
+                <div class="section-title">Estrategia de Mediación</div>
+                <div class="estrategia">
+                    <strong>ABP (Problemas de Ingeniería):</strong> Desafíos de diseño donde se debe predecir el equilibrio de una estructura antes de montarla en el laboratorio.
+                </div>
+            </div>
+            <div>
+                <div class="section-title">Ejes Temáticos</div>
+                <ul class="temas-list">
+                    <li>Momento de fuerza y equilibrio estático.</li>
+                    <li>Dinámica del Movimiento Circular.</li>
+                    <li>Máquinas simples y fricción.</li>
+                </ul>
+                <div class="section-title">Evidencia de Logro</div>
+                <span class="badge">Proyecto Estructuras en Equilibrio</span>
+                <span class="badge">Defensa Oral de Máquinas Simples</span>
+            </div>
+        </div>
+    </div>
+
+    <div class="bloque">
+        <div class="bloque-header">
+            <h2>BLOQUE 3: Principios de Conservación y Sistemas Energéticos</h2>
+            <span>Junio - Agosto</span>
+        </div>
+        <div class="bloque-content">
+            <div>
+                <div class="section-title">Metas de Desempeño Técnico</div>
+                <ul class="metas-list">
+                    <li>Aplicar el Teorema del Trabajo y la Energía en sistemas con fuerzas disipativas.</li>
+                    <li>Cuantificar la potencia mecánica y el impulso en colisiones reales.</li>
+                    <li>Relacionar la conservación de P con la seguridad vial y biomecánica.</li>
+                </ul>
+                <div class="section-title">Estrategia de Mediación</div>
+                <div class="estrategia">
+                    <strong>Indagación Virtual y Real:</strong> Uso de fotopuertas y sensores de velocidad en paralelo con simuladores PhET para verificar la invariancia de la energía mecánica.
+                </div>
+            </div>
+            <div>
+                <div class="section-title">Ejes Temáticos</div>
+                <ul class="temas-list">
+                    <li>Energía Cinética, Potencial y Elástica.</li>
+                    <li>Impulso y Cantidad de Movimiento.</li>
+                    <li>Potencia y rendimiento energético.</li>
+                </ul>
+                <div class="section-title">Evidencia de Logro</div>
+                <span class="badge">Laboratorio de Choques</span>
+                <span class="badge">Avance Proyecto "Dejando Huella"</span>
+            </div>
+        </div>
+    </div>
+
+    <div class="bloque">
+        <div class="bloque-header">
+            <h2>BLOQUE 4: Termodinámica y Transferencia Energética</h2>
+            <span>Setiembre - Octubre</span>
+        </div>
+        <div class="bloque-content">
+            <div>
+                <div class="section-title">Metas de Desempeño Técnico</div>
+                <ul class="metas-list">
+                    <li>Modelar sistemas cerrados mediante la 1ra Ley (Convención IUPAC: ΔU = Q + W).</li>
+                    <li>Deducir la relación entre emisividad espectral (color) y transferencia por radiación.</li>
+                    <li>Evaluar procesos de degradación energética mediante la 2da Ley de Termodinámica.</li>
+                </ul>
+                <div class="section-title">Estrategia de Mediación</div>
+                <div class="estrategia">
+                    <strong>Aprendizaje Basado en Fenómenos:</strong> El experimento de Joule como eje conector. Análisis de la huella térmica del instituto y eficiencia en sistemas vivos.
+                </div>
+            </div>
+            <div>
+                <div class="section-title">Ejes Temáticos</div>
+                <ul class="temas-list">
+                    <li>Variables de estado y Energía Interna.</li>
+                    <li>Radiación, Conducción y Convección.</li>
+                    <li>Calorimetría y Entropía.</li>
+                </ul>
+                <div class="section-title">Evidencia de Logro</div>
+                <span class="badge">Práctico Calor-Color</span>
+                <span class="badge">Presentación Final Proyecto Ancla</span>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <p>© 2026 · Planificación de Aula · Física Bachillerato Tecnológico · Uruguay</p>
+    </footer>
+</div>
+
+</body>
+</html>
